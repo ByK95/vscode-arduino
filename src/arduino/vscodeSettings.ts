@@ -12,6 +12,7 @@ const configKeys = {
     ALLOW_PDE_FILETYPE: "arduino.allowPDEFiletype",
     ENABLE_USB_DETECTION: "arduino.enableUSBDetection",
     DISABLE_TESTING_OPEN: "arduino.disableTestingOpen",
+    AUTO_RESOLVE_SKETCH: "arduino.autoResolveSketch",
     IGNORE_BOARDS: "arduino.ignoreBoards",
     SKIP_HEADER_PROVIDER: "arduino.skipHeaderProvider",
     DEFAULT_BAUD_RATE: "arduino.defaultBaudRate",
@@ -24,6 +25,7 @@ export interface IVscodeSettings {
     logLevel: string;
     allowPDEFiletype: boolean;
     enableUSBDetection: boolean;
+    autoResolveSketch: boolean;
     disableTestingOpen: boolean;
     ignoreBoards: string[];
     skipHeaderProvider: boolean;
@@ -65,6 +67,10 @@ export class VscodeSettings implements IVscodeSettings {
 
     public get enableUSBDetection(): boolean {
         return this.getConfigValue<boolean>(configKeys.ENABLE_USB_DETECTION);
+    }
+
+    public get autoResolveSketch(): boolean{
+        return this.getConfigValue<boolean>(configKeys.AUTO_RESOLVE_SKETCH);
     }
 
     public get disableTestingOpen(): boolean {

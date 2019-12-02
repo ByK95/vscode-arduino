@@ -470,6 +470,11 @@
           "default": false,
           "description": "Allow VSCode Arduino to open PDE sketches, from pre-1.0.0 versions of Arduino"
         },
+        "arduino.autoResolveSketch": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow auto resolving sketch file"
+        },
         "arduino.enableUSBDetection": {
           "type": "boolean",
           "default": true
