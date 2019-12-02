@@ -10,6 +10,7 @@ import * as Logger from "./logger/logger";
 
 import { ARDUINO_CONFIG_FILE } from "./common/constants";
 import { ArduinoWorkspace } from "./common/workspace";
+import { VscodeSettings } from "./arduino/vscodeSettings";
 
 /**
  * Interface that represents the arduino context information.
@@ -113,16 +114,19 @@ export class DeviceContext implements IDeviceContext, vscode.Disposable {
             this._sketchStatusBar.command = "arduino.setSketchFile";
             this._sketchStatusBar.tooltip = "Sketch File";
         }
-        vscode.window.onDidChangeActiveTextEditor((e) => {
-            let windowname = e.document.fileName;
-            if (windowname.endsWith(".ino")) {
-                this.sketch = windowname;
-                this._sketchStatusBar.text = this._sketch;
-            }else{
-                this.sketch = null;
-                this._sketchStatusBar.text = "<Set Sketch>";
-            }
-        }); 
+        const autoResolveSketch = VscodeSettings.getInstance().autoResolveSketch
+        if(autoResolveSketch){
+            vscode.window.onDidChangeActiveTextEditor((e) => {
+                let windowname = e.document.fileName;
+                if (windowname.endsWith(".ino")) {
+                    this.sketch = windowname;
+                    this._sketchStatusBar.text = this._sketch;
+                }else{
+                    this.sketch = null;
+                    this._sketchStatusBar.text = "<Set Sketch>";
+                }
+            });     
+        }
     }
 
     public dispose() {
