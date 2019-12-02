@@ -113,6 +113,16 @@ export class DeviceContext implements IDeviceContext, vscode.Disposable {
             this._sketchStatusBar.command = "arduino.setSketchFile";
             this._sketchStatusBar.tooltip = "Sketch File";
         }
+        vscode.window.onDidChangeActiveTextEditor((e) => {
+            let windowname = e.document.fileName;
+            if (windowname.endsWith(".ino")) {
+                this.sketch = windowname;
+                this._sketchStatusBar.text = this._sketch;
+            }else{
+                this.sketch = null;
+                this._sketchStatusBar.text = "<Set Sketch>";
+            }
+        }); 
     }
 
     public dispose() {
